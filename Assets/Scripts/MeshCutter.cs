@@ -11,7 +11,7 @@ public class MeshCutter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(1))
+       /* if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             if(Physics.Raycast(transform.position,transform.forward,out hit))
@@ -23,6 +23,17 @@ public class MeshCutter : MonoBehaviour {
                 }
                 Destroy(pieces[1], 1);
             }
-        }
+        }*/
 	}
+
+    void OnTriggerEnter(Collider collider)
+    {
+
+        GameObject[] pieces = MeshCut.Cut(collider.gameObject, transform.position, transform.right, capMaterial);
+        if (!pieces[1].GetComponent<Rigidbody>())
+        {
+            pieces[1].AddComponent<Rigidbody>();
+        }
+        Destroy(pieces[1], 1);
+    }
 }
